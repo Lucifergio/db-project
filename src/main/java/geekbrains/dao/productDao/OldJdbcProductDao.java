@@ -1,47 +1,49 @@
-package ru.gb.dao;
+package geekbrains.dao.productDao;
 
-import ru.gb.entity.Manufacturer;
+import geekbrains.dao.ProductDao;
+import geekbrains.entity.Product;
+import lombok.RequiredArgsConstructor;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OldJdbcManufacturerDao implements ManufacturerDao {
+//@Component
+@RequiredArgsConstructor
+public class OldJdbcProductDao implements ProductDao {
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "geek", "geek");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/gb_shop", "aleksey", "19082");
     }
 
     private void closeConnection(Connection connection) {
         if (connection == null) {
             return;
         }
+
         try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
-    public String findNameById(Long id) {
-        return null;
-    }
-
-    @Override
-    public Iterable<Manufacturer> findAll() {
-        Set<Manufacturer> manufacturers = new HashSet<>();
+    public Iterable<Product> findAll() {
+        Set<Product> products = new HashSet<>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("select * from manufacturer");
+            PreparedStatement statement = connection.prepareStatement("select * from PRODUCT");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                final  Manufacturer manufacturer = Manufacturer.builder()
+                final Product product = Product.builder()
                         .id(resultSet.getLong("id"))
-                        .name(resultSet.getString("name"))
+                        .title(resultSet.getString("title"))
+                        .cost(resultSet.getBigDecimal("cost"))
                         .build();
-                manufacturers.add(manufacturer);
+                products.add(product);
             }
             statement.close();
         } catch (SQLException e) {
@@ -49,21 +51,26 @@ public class OldJdbcManufacturerDao implements ManufacturerDao {
         } finally {
             closeConnection(connection);
         }
-        return manufacturers;
+        return products;
     }
 
     @Override
-    public Manufacturer findById(Long id) {
+    public String findTitleById(Long id) {
         return null;
     }
 
     @Override
-    public void insert(Manufacturer manufacturer) {
+    public Product findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void insert(Product product) {
 
     }
 
     @Override
-    public void update(Manufacturer manufacturer) {
+    public void update(Product product) {
 
     }
 

@@ -1,7 +1,6 @@
 package geekbrains.config;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.mapping.Property;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,6 +21,7 @@ import java.util.Properties;
 @PropertySource("classpath:jdbc.properties")
 @ComponentScan("geekbrains")
 @EnableTransactionManagement
+
 public class HibernateConfig {
 
     @Value("${driverClassName}")

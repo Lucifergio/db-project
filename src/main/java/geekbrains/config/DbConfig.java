@@ -43,14 +43,14 @@
 //    }
 //
 //    @Bean
-//    public JdbcTemplate jdbcTemplate()  {
+//    public JdbcTemplate jdbcTemplate() {
 //        JdbcTemplate jdbcTemplate = new JdbcTemplate();
 //        jdbcTemplate.setDataSource(dataSource());
 //        return jdbcTemplate;
 //    }
 //
 //    @Bean
-//    public NamedParameterJdbcTemplate namedParameterJdbcTemplate () {
+//    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
 //        return new NamedParameterJdbcTemplate(dataSource());
 //    }
 //}
